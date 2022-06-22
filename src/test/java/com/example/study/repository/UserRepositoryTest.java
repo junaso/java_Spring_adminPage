@@ -52,43 +52,5 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     }
 
-    @Test
-    @Transactional
-    public void read() {
-
-        User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
-
-        user
-                .setEmail("")
-                .setPhoneNumber("")
-                .setStatus("");
-        User u = new User().setAccount("").setEmail("").setPassword("");
-
-
-        if(user != null) {
-            user.getOrderGroupList().stream().forEach(orderGroup -> {
-
-                System.out.println(("--- 주문 묶음 ---"));
-                System.out.println("총금액 : " + orderGroup.getTotalPrice());
-                System.out.println("수령인 : " + orderGroup.getRevName());
-                System.out.println("수령지 : " + orderGroup.getRevAddress());
-                System.out.println("총수량 : " + orderGroup.getTotalQuantity());
-
-                System.out.println(("--- 주문 상세 ---"));
-                orderGroup.getOrderDetailList().forEach(orderDetail -> {
-                    System.out.println("파트너사 이름 : "+orderDetail.getItem().getPartner().getName());
-                    System.out.println("파트너사 카테고리 : "+orderDetail.getItem().getPartner().getCategory().getTitle());
-                    System.out.println("주문상품 : "+orderDetail.getItem().getName());
-                    System.out.println("고객센터 번호 : "+orderDetail.getItem().getPartner().getCallCenter());
-                    System.out.println("주문의 상턔 : "+orderDetail.getStatus());
-                    System.out.println("도착예정일자 : :" + orderDetail.getArrivalDate());
-
-                });
-            });
-        }
-        Assertions.assertNotNull(user);
-
-
-    }
 
 }
